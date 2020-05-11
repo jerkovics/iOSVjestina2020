@@ -13,10 +13,19 @@ class InitialViewController: UIViewController {
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var funFactField: UILabel!
     @IBOutlet weak var quizName: UILabel!
-    @IBOutlet var questionViewContainer: QuestionView!
     @IBOutlet weak var errorLabel: UILabel!
+    @IBOutlet weak var questionView: UIView!
     
-    @IBOutlet var questionView: UIView!
+    var customView: QuestionView?
+    
+    override func viewDidLoad() {
+        if let customView = Bundle.main.loadNibNamed("QuestionView", owner: self, options: nil)?.first as? QuestionView {
+            self.customView = customView
+            self.questionView.isHidden = true
+            self.questionView.addSubview(customView)
+            
+        }
+    }
     
     @IBAction func buttonTapped(_ sender: Any) {
         errorLabel.isHidden = true
@@ -66,15 +75,13 @@ class InitialViewController: UIViewController {
                 
                 //make questionView of 1 question with its question and answers
                 DispatchQueue.main.async {
-                if let customView = Bundle.main.loadNibNamed("QuestionView", owner: self, options: nil)?.first as? QuestionView {
-                    self?.questionView.addSubview(customView)
-                    customView.questionLabel.text = (quizes.first as! Quiz).questionsArray.first?.question
-                    customView.answ1.setTitle((quizes.first as! Quiz).questionsArray.first?.answers?[0], for: .normal)
-                    customView.answ2.setTitle((quizes.first as! Quiz).questionsArray.first?.answers?[1], for: .normal)
-                    customView.answ3.setTitle((quizes.first as! Quiz).questionsArray.first?.answers?[2], for: .normal)
-                    customView.answ4.setTitle((quizes.first as! Quiz).questionsArray.first?.answers?[3], for: .normal)
-                    customView.correctAnswer = (quizes.first as! Quiz).questionsArray.first?.correctAnswer
-                    }
+                    self?.questionView.isHidden = false
+                    self?.customView?.questionLabel.text = (quizes.first as! Quiz).questionsArray.first?.question
+                    self?.customView?.answ1.setTitle((quizes.first as! Quiz).questionsArray.first?.answers?[0], for: .normal)
+                    self?.customView?.answ2.setTitle((quizes.first as! Quiz).questionsArray.first?.answers?[1], for: .normal)
+                    self?.customView?.answ3.setTitle((quizes.first as! Quiz).questionsArray.first?.answers?[2], for: .normal)
+                    self?.customView?.answ4.setTitle((quizes.first as! Quiz).questionsArray.first?.answers?[3], for: .normal)
+                    self?.customView?.correctAnswer = (quizes.first as! Quiz).questionsArray.first?.correctAnswer
                 }
             
             } else{

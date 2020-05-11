@@ -28,26 +28,26 @@ class QuestionView: UIView{
     
     @IBAction func an2(_ sender: Any) {
         if (correctAnswer == 1) {
-            answ1.backgroundColor = UIColor.green
+            answ2.backgroundColor = UIColor.green
         } else{
-            answ1.backgroundColor = UIColor.red
+            answ2.backgroundColor = UIColor.red
         }
     }
     
     @IBAction func an3(_ sender: Any) {
         if (correctAnswer == 2) {
-            answ1.backgroundColor = UIColor.green
+            answ3.backgroundColor = UIColor.green
         } else{
-            answ1.backgroundColor = UIColor.red
+            answ3.backgroundColor = UIColor.red
         }
     }
     
     
     @IBAction func an4(_ sender: Any) {
         if (correctAnswer == 3) {
-            answ1.backgroundColor = UIColor.green
+            answ4.backgroundColor = UIColor.green
         } else{
-            answ1.backgroundColor = UIColor.red
+            answ4.backgroundColor = UIColor.red
         }
     }
     

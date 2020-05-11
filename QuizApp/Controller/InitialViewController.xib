@@ -15,8 +15,7 @@
                 <outlet property="errorLabel" destination="zr4-ZN-glw" id="SQL-SI-jJW"/>
                 <outlet property="funFactField" destination="iKh-3F-CPg" id="aVn-vu-fvw"/>
                 <outlet property="imageView" destination="gfh-ok-ATJ" id="AuP-sJ-3Y6"/>
-                <outlet property="questionView" destination="iN0-l3-epB" id="1ZQ-Gx-65v"/>
-                <outlet property="questionViewContainer" destination="iN0-l3-epB" id="68f-9f-gel"/>
+                <outlet property="questionView" destination="yHy-yR-Elg" id="tXi-YL-Efq"/>
                 <outlet property="quizName" destination="Cth-f0-32H" id="dxd-pR-YLq"/>
                 <outlet property="view" destination="iN0-l3-epB" id="dfr-en-gvd"/>
             </connections>
@@ -62,6 +61,11 @@
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>
+                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="yHy-yR-Elg">
+                    <rect key="frame" x="20" y="384" width="374" height="209"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                </view>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
