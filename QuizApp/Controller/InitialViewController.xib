@@ -12,8 +12,10 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="InitialViewController" customModule="QuizApp" customModuleProvider="target">
             <connections>
+                <outlet property="errorLabel" destination="zr4-ZN-glw" id="SQL-SI-jJW"/>
                 <outlet property="funFactField" destination="iKh-3F-CPg" id="aVn-vu-fvw"/>
                 <outlet property="imageView" destination="gfh-ok-ATJ" id="AuP-sJ-3Y6"/>
+                <outlet property="questionView" destination="iN0-l3-epB" id="1ZQ-Gx-65v"/>
                 <outlet property="questionViewContainer" destination="iN0-l3-epB" id="68f-9f-gel"/>
                 <outlet property="quizName" destination="Cth-f0-32H" id="dxd-pR-YLq"/>
                 <outlet property="view" destination="iN0-l3-epB" id="dfr-en-gvd"/>
@@ -48,6 +50,13 @@
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Cth-f0-32H">
                     <rect key="frame" x="126" y="227" width="268" height="83"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Pogreška pri dohvaćanju kvizova" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zr4-ZN-glw">
+                    <rect key="frame" x="74" y="137" width="267" height="21"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                     <nil key="textColor"/>
