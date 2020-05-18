@@ -38,9 +38,9 @@ class Quiz{
             self.category = CategoryType(rawValue: category)!  
             self.imageUrl = imageUrl
             self.questionsArray = questionsArray
-            for q in questionsArray{
-                print(q.question)
-            }
+//            for q in questionsArray{
+//                print(q.question)
+//            }
             
         } else{
             return nil

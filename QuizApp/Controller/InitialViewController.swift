@@ -23,6 +23,7 @@ class InitialViewController: UIViewController {
             self.customView = customView
             self.questionView.isHidden = true
             self.questionView.addSubview(customView)
+//            self.questionView.bounds = customView.frame
             
         }
     }
@@ -76,12 +77,14 @@ class InitialViewController: UIViewController {
                 //make questionView of 1 question with its question and answers
                 DispatchQueue.main.async {
                     self?.questionView.isHidden = false
-                    self?.customView?.questionLabel.text = (quizes.first as! Quiz).questionsArray.first?.question
-                    self?.customView?.answ1.setTitle((quizes.first as! Quiz).questionsArray.first?.answers?[0], for: .normal)
-                    self?.customView?.answ2.setTitle((quizes.first as! Quiz).questionsArray.first?.answers?[1], for: .normal)
-                    self?.customView?.answ3.setTitle((quizes.first as! Quiz).questionsArray.first?.answers?[2], for: .normal)
-                    self?.customView?.answ4.setTitle((quizes.first as! Quiz).questionsArray.first?.answers?[3], for: .normal)
-                    self?.customView?.correctAnswer = (quizes.first as! Quiz).questionsArray.first?.correctAnswer
+                    if let firstQuiz = quizes.first{
+                        self?.customView?.questionLabel.text = firstQuiz?.questionsArray.first?.question
+                        self?.customView?.answ1.setTitle(firstQuiz?.questionsArray.first?.answers?[0], for: .normal)
+                        self?.customView?.answ2.setTitle(firstQuiz?.questionsArray.first?.answers?[1], for: .normal)
+                        self?.customView?.answ3.setTitle(firstQuiz?.questionsArray.first?.answers?[2], for: .normal)
+                        self?.customView?.answ4.setTitle(firstQuiz?.questionsArray.first?.answers?[3], for: .normal)
+                        self?.customView?.correctAnswer = firstQuiz?.questionsArray.first?.correctAnswer
+                    }
                 }
             
             } else{

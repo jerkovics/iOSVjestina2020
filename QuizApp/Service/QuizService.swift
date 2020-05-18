@@ -12,7 +12,7 @@ class QuizService {
     
     func fetchQuizzes(urlString: String, completion: @escaping (([Quiz?]) -> Void)){
         if let url = URL(string: urlString) {
-            var request = URLRequest(url: url)
+            let request = URLRequest(url: url)
             
             let dataTask = URLSession.shared.dataTask(with: request){(data, response, error) in
                 if let data = data {
