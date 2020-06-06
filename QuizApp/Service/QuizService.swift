@@ -49,6 +49,54 @@ class QuizService {
         }
     }
     
+    func login(urlString: String, korisnickoIme: String, lozinka: String, completion: @escaping ((String?, Int?) -> Void)){
+        if let url = URL(string: urlString) {
+            var request = URLRequest(url: url)
+            request.httpMethod = "POST"
+            
+                // HTTP Request Parameters which will be sent in HTTP Request Body
+            let postString = "username=\(korisnickoIme)&password=\(lozinka)";
+            // Set HTTP Request Body
+            request.httpBody = postString.data(using: String.Encoding.utf8);
+            
+//            do {
+//                request.httpBody = try JSONSerialization.data(withJSONObject: parameters, options: .prettyPrinted) // pass dictionary to nsdata object and set it as request body
+//            } catch let error {
+//                print(error.localizedDescription)
+//                completion(nil, nil)
+//            }
+            
+            let dataTask = URLSession.shared.dataTask(with: request){(data, response, error) in
+                if let data = data {
+                    
+                    do {
+                        let json = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any]
+                        
+                        
+                            if let token = json?["token"] as? String,
+                                let id = json?["user_id"] as? Int{
+                                completion(token, id)
+                            } else {
+                                completion(nil, nil)
+                            }
+                        
+                        
+                    } catch {
+                        completion(nil, nil)
+                    }
+                    
+                    
+                } else {
+                    completion(nil, nil)
+                }
+                
+            }
+            dataTask.resume()
+        } else {
+            completion(nil, nil)
+        }
+    }
+    
     func fetchImage(url: URL, completion: @escaping ((UIImage?) -> Void)){
         let url = url
         

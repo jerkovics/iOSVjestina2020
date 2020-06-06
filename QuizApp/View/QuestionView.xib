@@ -13,28 +13,28 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="QuestionView" customModule="QuizApp" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="407" height="200"/>
+            <rect key="frame" x="0.0" y="0.0" width="374" height="209"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="31x-Uf-nMC">
-                    <rect key="frame" x="40" y="27" width="327" height="20.333333333333329"/>
+                    <rect key="frame" x="40" y="27" width="294" height="20.333333333333329"/>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                     <size key="shadowOffset" width="0.0" height="0.0"/>
                 </label>
                 <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" alignment="center" spacing="100" translatesAutoresizingMaskIntoConstraints="NO" id="mQE-K5-w66" userLabel="firstTwoAnswers">
-                    <rect key="frame" x="40" y="67.333333333333329" width="327" height="30"/>
+                    <rect key="frame" x="40" y="67.333333333333329" width="294" height="30"/>
                     <subviews>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" adjustsImageSizeForAccessibilityContentSizeCategory="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IVs-7R-kPU">
-                            <rect key="frame" x="0.0" y="0.0" width="113.66666666666667" height="30"/>
+                            <rect key="frame" x="0.0" y="0.0" width="97" height="30"/>
                             <state key="normal" title="Button"/>
                             <connections>
-                                <action selector="an1:" destination="iN0-l3-epB" eventType="touchUpInside" id="1ZV-oy-Bc8"/>
+                                <action selector="an1:" destination="iN0-l3-epB" eventType="touchUpInside" id="NRK-rR-jW3"/>
                             </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" adjustsImageSizeForAccessibilityContentSizeCategory="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="c92-T0-IVv">
-                            <rect key="frame" x="213.66666666666666" y="0.0" width="113.33333333333334" height="30"/>
+                            <rect key="frame" x="197" y="0.0" width="97" height="30"/>
                             <state key="normal" title="Button"/>
                             <connections>
                                 <action selector="an2:" destination="iN0-l3-epB" eventType="touchUpInside" id="yky-vB-sH3"/>
@@ -43,17 +43,17 @@
                     </subviews>
                 </stackView>
                 <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" alignment="center" spacing="100" translatesAutoresizingMaskIntoConstraints="NO" id="po0-1J-Mjv" userLabel="lastTwoAnswers">
-                    <rect key="frame" x="40" y="117.33333333333331" width="327" height="30"/>
+                    <rect key="frame" x="40" y="117.33333333333331" width="294" height="30"/>
                     <subviews>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iOR-iF-985">
-                            <rect key="frame" x="0.0" y="0.0" width="113.66666666666667" height="30"/>
+                            <rect key="frame" x="0.0" y="0.0" width="97" height="30"/>
                             <state key="normal" title="Button"/>
                             <connections>
                                 <action selector="an3:" destination="iN0-l3-epB" eventType="touchUpInside" id="4C8-Az-eMV"/>
                             </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2j0-ha-dYq">
-                            <rect key="frame" x="213.66666666666666" y="0.0" width="113.33333333333334" height="30"/>
+                            <rect key="frame" x="197" y="0.0" width="97" height="30"/>
                             <state key="normal" title="Button"/>
                             <connections>
                                 <action selector="an4:" destination="iN0-l3-epB" eventType="touchUpInside" id="SwO-q5-mdX"/>

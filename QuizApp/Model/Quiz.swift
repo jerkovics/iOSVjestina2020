@@ -26,6 +26,7 @@ class Quiz{
             //save questions
             let questions = jsonDict["questions"] as? [Any] {
                 var questionsArray : [Question] = []
+            
                 for data in questions{
                     if let question = Question(json: data) {
                         questionsArray.append(question)
@@ -33,11 +34,11 @@ class Quiz{
                 }
         
         
-            self.id = id
-            self.title = title
-            self.category = CategoryType(rawValue: category)!  
-            self.imageUrl = imageUrl
-            self.questionsArray = questionsArray
+                self.id = id
+                self.title = title
+                self.category = CategoryType(rawValue: category)!
+                self.imageUrl = imageUrl
+                self.questionsArray = questionsArray
 //            for q in questionsArray{
 //                print(q.question)
 //            }
