@@ -7,7 +7,11 @@
 
 import Foundation
 
-enum CategoryType: String{
+enum CategoryType: String, CaseIterable{
     case SPORTS
-    case SCIENCE
+    case SCIENCE 
+    
+    static func numOfTypes() -> Int {
+        return CategoryType.allCases.count
+    }
 }

@@ -7,25 +7,38 @@
 
 import UIKit
 
-class InitialViewController: UIViewController {
+class InitialViewController: UIViewController,  UITableViewDataSource,  UITableViewDelegate {
     
     let quizService = QuizService()
+//    let quizTableViewController = QuizTableViewController()
+    
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var funFactField: UILabel!
     @IBOutlet weak var quizName: UILabel!
     @IBOutlet weak var errorLabel: UILabel!
     @IBOutlet weak var questionView: UIView!
+    @IBOutlet weak var quizTableView: UITableView!
     
     var customView: QuestionView?
+    
+    let numOfTypes = CategoryType.numOfTypes()
+    var quizzes: [Quiz] = []
+    
     
     override func viewDidLoad() {
         if let customView = Bundle.main.loadNibNamed("QuestionView", owner: self, options: nil)?.first as? QuestionView {
             self.customView = customView
             self.questionView.isHidden = true
             self.questionView.addSubview(customView)
-//            self.questionView.bounds = customView.frame
+
             
         }
+        
+        quizTableView.delegate = self
+        quizTableView.dataSource = self
+        
+        quizTableView.register(UINib(nibName: "QuizTableViewCell", bundle: nil), forCellReuseIdentifier: "quizCell")
+
     }
     
     @IBAction func buttonTapped(_ sender: Any) {
@@ -33,6 +46,12 @@ class InitialViewController: UIViewController {
         quizService.fetchQuizzes(urlString: "https://iosquiz.herokuapp.com/api/quizzes") { [weak self] (quizes) in
             
             if !quizes.isEmpty {
+                DispatchQueue.main.async {
+                    print(quizes)
+                    self?.setQuizzes(quizzes: quizes as! [Quiz])
+                    self?.quizTableView.reloadData()
+                }
+                
             //get questions from quizzes
                 var questions : [String] = []
                 
@@ -41,10 +60,9 @@ class InitialViewController: UIViewController {
                         questions.append(question.question!)
                     }
                 }
+            
                 
-                print(questions)
                 
-                //find how many questions have word "NBA" in it
                 let funFacts = questions.filter({$0.contains("NBA")})
                 let numOfFunFacts = funFacts.count
                 
@@ -54,27 +72,7 @@ class InitialViewController: UIViewController {
                     self?.funFactField.text = "Fun Facts: " + String(numOfFunFacts)
                 }
 
-                //find image of quiz and display it
-                if let quiz = quizes.first as? Quiz,
-                    let qService = self?.quizService {
-                    qService.fetchImage(url: quiz.imageUrl) { image in
-                        self?.imageView.image = image
-                    }
-                    DispatchQueue.main.async {
-                        //find title of quiz and display it
-                        self?.quizName.text = quiz.title
-                        //if the category is science, background is green; else background is yellow
-                        if quiz.category == CategoryType.SCIENCE{
-                            self?.imageView.backgroundColor = UIColor.green
-                            self?.quizName.backgroundColor = UIColor.green
-                        } else{
-                            self?.imageView.backgroundColor = UIColor.yellow
-                            self?.quizName.backgroundColor = UIColor.yellow
-                        }
-                    }
-                }
                 
-                //make questionView of 1 question with its question and answers
                 DispatchQueue.main.async {
                     self?.questionView.isHidden = false
                     if let firstQuiz = quizes.first{
@@ -85,6 +83,8 @@ class InitialViewController: UIViewController {
                         self?.customView?.answ4.setTitle(firstQuiz?.questionsArray.first?.answers?[3], for: .normal)
                         self?.customView?.correctAnswer = firstQuiz?.questionsArray.first?.correctAnswer
                     }
+                    
+                    
                 }
             
             } else{
@@ -94,6 +94,63 @@ class InitialViewController: UIViewController {
             }
         }
         
+    }
+    
+
+     func numberOfSections(in tableView: UITableView) -> Int {
+        return numOfTypes
+    }
+    
+     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return quizzes.filter{(quiz: Quiz) -> Bool in
+            quiz.category == CategoryType.allCases[section]}.count
+    }
+    
+    
+     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        var cell = tableView.dequeueReusableCell(withIdentifier: "quizCell", for: indexPath) as? QuizTableViewCell
+        
+        let quiz = quizzes.filter{(quiz: Quiz) -> Bool in
+            quiz.category == CategoryType.allCases[indexPath.section]}[indexPath.row]
+        
+        
+        quizService.fetchImage(url: quiz.imageUrl) { image in
+            cell?.quizImage.image = image
+        }
+        
+        DispatchQueue.main.async {
+            cell?.quizTitle.text = quiz.title
+            cell?.quizLevel.text = String(quiz.level)
+            cell?.quizDescription.text = quiz.description
+        }
+        
+        return cell!
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 129
+    }
+
+     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        
+        return "\(CategoryType.allCases[section])"
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        
+        let quiz = quizzes.filter{(quiz: Quiz) -> Bool in
+            quiz.category == CategoryType.allCases[indexPath.section]}[indexPath.row]
+        
+        let quizController = QuizViewController()
+        quizController.setQuiz(quiz: quiz)
+        
+        navigationController?.pushViewController(quizController, animated: true)
+        
+    }
+    
+    func setQuizzes(quizzes: [Quiz]) {
+        self.quizzes = quizzes
     }
     
 }

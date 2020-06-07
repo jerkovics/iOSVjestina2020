@@ -14,9 +14,8 @@
             <connections>
                 <outlet property="errorLabel" destination="zr4-ZN-glw" id="SQL-SI-jJW"/>
                 <outlet property="funFactField" destination="iKh-3F-CPg" id="aVn-vu-fvw"/>
-                <outlet property="imageView" destination="gfh-ok-ATJ" id="AuP-sJ-3Y6"/>
                 <outlet property="questionView" destination="yHy-yR-Elg" id="tXi-YL-Efq"/>
-                <outlet property="quizName" destination="Cth-f0-32H" id="dxd-pR-YLq"/>
+                <outlet property="quizTableView" destination="dTt-cF-ruQ" id="7yT-We-lzx"/>
                 <outlet property="view" destination="iN0-l3-epB" id="dfr-en-gvd"/>
             </connections>
         </placeholder>
@@ -36,19 +35,8 @@
                         <action selector="buttonTapped:" destination="-1" eventType="touchUpInside" id="ZkN-7r-jAR"/>
                     </connections>
                 </button>
-                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gfh-ok-ATJ">
-                    <rect key="frame" x="20" y="227" width="98" height="83"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                </imageView>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iKh-3F-CPg">
                     <rect key="frame" x="20" y="166" width="168" height="53"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                    <nil key="textColor"/>
-                    <nil key="highlightedColor"/>
-                </label>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Cth-f0-32H">
-                    <rect key="frame" x="126" y="227" width="268" height="83"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                     <nil key="textColor"/>
@@ -61,8 +49,13 @@
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="dTt-cF-ruQ">
+                    <rect key="frame" x="20" y="227" width="374" height="417"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                </tableView>
                 <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="yHy-yR-Elg">
-                    <rect key="frame" x="20" y="384" width="374" height="209"/>
+                    <rect key="frame" x="20" y="652" width="374" height="209"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 </view>

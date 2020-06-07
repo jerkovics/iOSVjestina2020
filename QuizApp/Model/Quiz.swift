@@ -11,15 +11,19 @@ class Quiz{
     
     let id : Int
     let title : String
+    let description: String
     let imageUrl : URL
     let category: CategoryType
+    let level: Int
     let questionsArray: [Question]
     
     init?(json: Any) {
         if let jsonDict = json as? [String: Any],
             let id = jsonDict["id"] as? Int,
             let title = jsonDict["title"] as? String,
+            let description = jsonDict["description"] as? String,
             let category = jsonDict["category"] as? String,
+            let level = jsonDict["level"] as? Int,
             let image = jsonDict["image"] as? String,
             let imageUrl = URL(string: image),
             
@@ -36,7 +40,9 @@ class Quiz{
         
                 self.id = id
                 self.title = title
+                self.description = description
                 self.category = CategoryType(rawValue: category)!
+                self.level = level
                 self.imageUrl = imageUrl
                 self.questionsArray = questionsArray
 //            for q in questionsArray{
