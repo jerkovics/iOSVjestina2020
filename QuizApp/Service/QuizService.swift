@@ -109,5 +109,50 @@ class QuizService {
         }
     }
     
+    func sendResults(quizId: Int, diff: Double, numCorrectAnswers: Int, completion: @escaping ((Response?) -> Void)){
+        
+        let userDefaults = UserDefaults.standard
+        guard let userId = userDefaults.string(forKey: "user_id") else { completion(nil); return }
+        guard let token = userDefaults.string(forKey: "token") else{ completion(nil); return }
+        
+        if let url = URL(string: "https://iosquiz.herokuapp.com/api/result") {
+            var request = URLRequest(url: url)
+            request.httpMethod = "POST"
+            request.setValue("Application/json", forHTTPHeaderField: "Content-Type")
+            request.setValue("\(token)", forHTTPHeaderField: "Authorization")
+            
+            // HTTP Request Parameters which will be sent in HTTP Request Body
+            let parameters = ["quiz_id": quizId, "user_id": userId, "time": diff, "no_of_correct": numCorrectAnswers] as [String : Any]
+            
+//            let postString = "quiz_id=\(quizId)&user_id=\(userId)&time=\(diff)&no_of_correct\(numCorrectAnswers)";
+            
+            do {
+                request.httpBody = try JSONSerialization.data(withJSONObject: parameters, options: .prettyPrinted) // pass dictionary to nsdata object and set it as request body
+            } catch let error {
+                print(error.localizedDescription)
+            }
+            
+            // Set HTTP Request Body
+//            request.httpBody = postString.data(using: String.Encoding.utf8);
+            
+            
+            let dataTask = URLSession.shared.dataTask(with: request){(data, response, error) in
+                if let response = response as? HTTPURLResponse {
+                    completion(Response(rawValue: response.statusCode))
+                } else {
+                    completion(nil)
+                }
+                
+            }
+            dataTask.resume()
+        } else {
+            completion(nil)
+        }
+    }
+    
+        
+        
+    
+    
 
 }

@@ -15,7 +15,7 @@ class LoginViewController: UIViewController {
     
 
     var quizService = QuizService()
-    let initialController = InitialViewController()
+    let initialController = UINavigationController(rootViewController: InitialViewController())
     
     override func viewDidLoad() {
         super.viewDidLoad()

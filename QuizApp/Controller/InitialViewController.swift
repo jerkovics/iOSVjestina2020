@@ -12,9 +12,7 @@ class InitialViewController: UIViewController,  UITableViewDataSource,  UITableV
     let quizService = QuizService()
 //    let quizTableViewController = QuizTableViewController()
     
-    @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var funFactField: UILabel!
-    @IBOutlet weak var quizName: UILabel!
     @IBOutlet weak var errorLabel: UILabel!
     @IBOutlet weak var questionView: UIView!
     @IBOutlet weak var quizTableView: UITableView!
@@ -25,14 +23,11 @@ class InitialViewController: UIViewController,  UITableViewDataSource,  UITableV
     var quizzes: [Quiz] = []
     
     
+    @IBAction func tapLogout(_ sender: UIButton) {
+        self.navigationController?.present(UINavigationController(rootViewController: LoginViewController()), animated: false, completion: {})
+    }
+    
     override func viewDidLoad() {
-        if let customView = Bundle.main.loadNibNamed("QuestionView", owner: self, options: nil)?.first as? QuestionView {
-            self.customView = customView
-            self.questionView.isHidden = true
-            self.questionView.addSubview(customView)
-
-            
-        }
         
         quizTableView.delegate = self
         quizTableView.dataSource = self
@@ -73,19 +68,6 @@ class InitialViewController: UIViewController,  UITableViewDataSource,  UITableV
                 }
 
                 
-                DispatchQueue.main.async {
-                    self?.questionView.isHidden = false
-                    if let firstQuiz = quizes.first{
-                        self?.customView?.questionLabel.text = firstQuiz?.questionsArray.first?.question
-                        self?.customView?.answ1.setTitle(firstQuiz?.questionsArray.first?.answers?[0], for: .normal)
-                        self?.customView?.answ2.setTitle(firstQuiz?.questionsArray.first?.answers?[1], for: .normal)
-                        self?.customView?.answ3.setTitle(firstQuiz?.questionsArray.first?.answers?[2], for: .normal)
-                        self?.customView?.answ4.setTitle(firstQuiz?.questionsArray.first?.answers?[3], for: .normal)
-                        self?.customView?.correctAnswer = firstQuiz?.questionsArray.first?.correctAnswer
-                    }
-                    
-                    
-                }
             
             } else{
                 DispatchQueue.main.async {

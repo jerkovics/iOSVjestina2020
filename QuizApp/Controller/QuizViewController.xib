@@ -12,10 +12,12 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="QuizViewController" customModule="QuizApp" customModuleProvider="target">
             <connections>
+                <outlet property="correctAnswersLabel" destination="6U7-jq-vsd" id="vdL-Lc-YFv"/>
                 <outlet property="questionView" destination="EuD-Ra-zAP" id="zFD-WJ-7we"/>
                 <outlet property="quizButton" destination="0lp-3q-KYY" id="gvU-Tf-IyZ"/>
                 <outlet property="quizImage" destination="GCv-bw-zyH" id="cS1-Gy-mRe"/>
                 <outlet property="quizTitle" destination="I6N-CM-wGt" id="0nu-oQ-ah8"/>
+                <outlet property="timeLabel" destination="Ipa-hJ-Mhi" id="BCT-cc-UfC"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -43,19 +45,42 @@
                         <action selector="tapStartQuiz:" destination="-1" eventType="touchUpInside" id="vVe-d4-xNP"/>
                     </connections>
                 </button>
-                <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="EuD-Ra-zAP">
+                <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="EuD-Ra-zAP">
                     <rect key="frame" x="20" y="440" width="374" height="209"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 </scrollView>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6U7-jq-vsd">
+                    <rect key="frame" x="10" y="500" width="394" height="21"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ipa-hJ-Mhi">
+                    <rect key="frame" x="10" y="540" width="394" height="21"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
+                <constraint firstItem="EuD-Ra-zAP" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="440" id="0Ov-lX-dyY"/>
+                <constraint firstItem="Ipa-hJ-Mhi" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="10" id="11O-o3-FtQ"/>
+                <constraint firstItem="EuD-Ra-zAP" firstAttribute="leading" secondItem="I6N-CM-wGt" secondAttribute="leading" id="1Ae-zI-V9g"/>
+                <constraint firstItem="EuD-Ra-zAP" firstAttribute="centerX" secondItem="6U7-jq-vsd" secondAttribute="centerX" id="3Dk-l2-xae"/>
+                <constraint firstItem="EuD-Ra-zAP" firstAttribute="centerX" secondItem="Ipa-hJ-Mhi" secondAttribute="centerX" id="6YJ-Xe-NZO"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="EuD-Ra-zAP" secondAttribute="bottom" constant="213" id="8nX-zp-h04"/>
                 <constraint firstItem="GCv-bw-zyH" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="87" id="FDb-Sz-zp0"/>
                 <constraint firstItem="I6N-CM-wGt" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="20" id="I24-cv-d1d"/>
+                <constraint firstItem="6U7-jq-vsd" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="10" id="KAn-8D-hbu"/>
+                <constraint firstItem="Ipa-hJ-Mhi" firstAttribute="top" secondItem="6U7-jq-vsd" secondAttribute="bottom" constant="19" id="KNg-cG-rea"/>
                 <constraint firstItem="0lp-3q-KYY" firstAttribute="top" secondItem="GCv-bw-zyH" secondAttribute="bottom" constant="20" id="Kfp-Xp-0rx"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="Ipa-hJ-Mhi" secondAttribute="trailing" constant="10" id="M6x-6L-q90"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="GCv-bw-zyH" secondAttribute="trailing" constant="87" id="TSw-MG-BDc"/>
                 <constraint firstItem="I6N-CM-wGt" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="70" id="ZEp-4X-xbJ"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="I6N-CM-wGt" secondAttribute="trailing" constant="20" id="dMO-sj-APS"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="6U7-jq-vsd" secondAttribute="trailing" constant="10" id="hpI-9i-3UN"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="Ipa-hJ-Mhi" secondAttribute="bottom" constant="301" id="o4y-LE-HEh"/>
+                <constraint firstItem="EuD-Ra-zAP" firstAttribute="trailing" secondItem="I6N-CM-wGt" secondAttribute="trailing" id="qJJ-WY-HVw"/>
                 <constraint firstItem="GCv-bw-zyH" firstAttribute="centerX" secondItem="0lp-3q-KYY" secondAttribute="centerX" id="sYx-6Q-tZn"/>
                 <constraint firstItem="GCv-bw-zyH" firstAttribute="top" secondItem="I6N-CM-wGt" secondAttribute="bottom" constant="20" id="usD-67-Go1"/>
             </constraints>
