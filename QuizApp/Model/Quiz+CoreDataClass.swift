@@ -22,12 +22,13 @@ public class Quiz: NSManagedObject {
         request.returnsObjectsAsFaults = false
         
         do {
-            let reviews = try context.fetch(request)
-            if let review = reviews.first {
-                return review
+            let quizzes = try context.fetch(request)
+            if let quiz = quizzes.first {
+                print("if let")
+                return quiz
             } else {
-                let newReview = Quiz(context: context)
-                return newReview
+                let newQuiz = Quiz(context: context)
+                return newQuiz
             }
         } catch {
             return nil
@@ -80,57 +81,3 @@ public class Quiz: NSManagedObject {
         return nil
     }
 }
-
-//
-//import Foundation
-//
-//class Quiz{
-//
-//    let id : Int
-//    let title : String
-//    let description: String
-//    let imageUrl : URL
-//    let category: CategoryType
-//    let level: Int
-//    let questionsArray: [Question]
-//
-//    init?(json: Any) {
-//        if let jsonDict = json as? [String: Any],
-//            let id = jsonDict["id"] as? Int,
-//            let title = jsonDict["title"] as? String,
-//            let description = jsonDict["description"] as? String,
-//            let category = jsonDict["category"] as? String,
-//            let level = jsonDict["level"] as? Int,
-//            let image = jsonDict["image"] as? String,
-//            let imageUrl = URL(string: image),
-//
-//            //save questions
-//            let questions = jsonDict["questions"] as? [Any] {
-//                var questionsArray : [Question] = []
-//
-//                for data in questions{
-//                    if let question = Question(json: data) {
-//                        questionsArray.append(question)
-//                    }
-//                }
-//
-//
-//                self.id = id
-//                self.title = title
-//                self.description = description
-//                self.category = CategoryType(rawValue: category)!
-//                self.level = level
-//                self.imageUrl = imageUrl
-//                self.questionsArray = questionsArray
-////            for q in questionsArray{
-////                print(q.question)
-////            }
-//
-//        } else{
-//            return nil
-//        }
-//
-//    }
-//
-//}
-//

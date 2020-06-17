@@ -136,12 +136,12 @@ class QuizViewController: UIViewController, QuestionViewDelegate {
     //        DispatchQueue.main.async {
             self.questionView.isHidden = false
             if let quiz = self.quiz{
-                self.customView?.questionLabel.text = (quiz.questions.first as! Question).question
-                self.customView?.answ1.setTitle((quiz.questions.first as! Question).answers[0], for: .normal)
-                self.customView?.answ2.setTitle((quiz.questions.first as! Question).answers[1], for: .normal)
-                self.customView?.answ3.setTitle((quiz.questions.first as! Question).answers[2], for: .normal)
-                self.customView?.answ4.setTitle((quiz.questions.first as! Question).answers[3], for: .normal)
-                self.customView?.correctAnswer = Int((quiz.questions.first as! Question).correct_answer)
+                self.customView?.questionLabel.text = (quiz.questions[self.currentQuestion] as! Question).question
+                self.customView?.answ1.setTitle((quiz.questions[self.currentQuestion] as! Question).answers[0], for: .normal)
+                self.customView?.answ2.setTitle((quiz.questions[self.currentQuestion] as! Question).answers[1], for: .normal)
+                self.customView?.answ3.setTitle((quiz.questions[self.currentQuestion] as! Question).answers[2], for: .normal)
+                self.customView?.answ4.setTitle((quiz.questions[self.currentQuestion] as! Question).answers[3], for: .normal)
+                self.customView?.correctAnswer = Int((quiz.questions[self.currentQuestion] as! Question).correct_answer)
                 }
            
             

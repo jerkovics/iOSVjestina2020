@@ -24,7 +24,7 @@ class DataController {
     // iz njega dohvacamo podatke iz baze, mijenajmo ih, stvaramo i brisemo.
     // Sve promjene nad objektima napravljene u NSManagedObjectContextu su napravljeno samo nad objektima u memoriji, da bi se te promjene perzistirale u bazu potrebno je spremiti context
     lazy var persistentContainer: NSPersistentContainer = {
-        let container = NSPersistentContainer(name: "Model")
+        let container = NSPersistentContainer(name: "QuizModel")
         container.loadPersistentStores(completionHandler: { (storeDescription, error) in
             if let error = error as NSError? {
                 fatalError("Unresolved error \(error), \(error.userInfo)")
