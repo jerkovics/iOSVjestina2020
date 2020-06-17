@@ -38,13 +38,6 @@
                         <constraint firstAttribute="height" constant="128" id="Hrc-hd-hfJ"/>
                     </constraints>
                 </imageView>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0lp-3q-KYY">
-                    <rect key="frame" x="173.5" y="303" width="67" height="30"/>
-                    <state key="normal" title="Start quiz"/>
-                    <connections>
-                        <action selector="tapStartQuiz:" destination="-1" eventType="touchUpInside" id="vVe-d4-xNP"/>
-                    </connections>
-                </button>
                 <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="EuD-Ra-zAP">
                     <rect key="frame" x="20" y="440" width="374" height="209"/>
                 </scrollView>
@@ -60,6 +53,26 @@
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yDJ-R0-xmL">
+                    <rect key="frame" x="270" y="303" width="134" height="30"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="134" id="g80-p0-e93"/>
+                    </constraints>
+                    <state key="normal" title="LeaderBoard"/>
+                    <connections>
+                        <action selector="getLeaderBoard:" destination="-1" eventType="touchUpInside" id="7e9-5c-q22"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0lp-3q-KYY">
+                    <rect key="frame" x="147" y="303" width="120" height="30"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="120" id="trr-lp-5Za"/>
+                    </constraints>
+                    <state key="normal" title="Start quiz"/>
+                    <connections>
+                        <action selector="tapStartQuiz:" destination="-1" eventType="touchUpInside" id="vVe-d4-xNP"/>
+                    </connections>
+                </button>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
@@ -71,18 +84,20 @@
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="EuD-Ra-zAP" secondAttribute="bottom" constant="213" id="8nX-zp-h04"/>
                 <constraint firstItem="GCv-bw-zyH" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="87" id="FDb-Sz-zp0"/>
                 <constraint firstItem="I6N-CM-wGt" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="20" id="I24-cv-d1d"/>
+                <constraint firstItem="0lp-3q-KYY" firstAttribute="baseline" secondItem="yDJ-R0-xmL" secondAttribute="baseline" id="IoG-TT-Wkt"/>
                 <constraint firstItem="6U7-jq-vsd" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="10" id="KAn-8D-hbu"/>
                 <constraint firstItem="Ipa-hJ-Mhi" firstAttribute="top" secondItem="6U7-jq-vsd" secondAttribute="bottom" constant="19" id="KNg-cG-rea"/>
-                <constraint firstItem="0lp-3q-KYY" firstAttribute="top" secondItem="GCv-bw-zyH" secondAttribute="bottom" constant="20" id="Kfp-Xp-0rx"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="Ipa-hJ-Mhi" secondAttribute="trailing" constant="10" id="M6x-6L-q90"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="GCv-bw-zyH" secondAttribute="trailing" constant="87" id="TSw-MG-BDc"/>
                 <constraint firstItem="I6N-CM-wGt" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="70" id="ZEp-4X-xbJ"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="I6N-CM-wGt" secondAttribute="trailing" constant="20" id="dMO-sj-APS"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="6U7-jq-vsd" secondAttribute="trailing" constant="10" id="hpI-9i-3UN"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="Ipa-hJ-Mhi" secondAttribute="bottom" constant="301" id="o4y-LE-HEh"/>
+                <constraint firstItem="0lp-3q-KYY" firstAttribute="top" secondItem="GCv-bw-zyH" secondAttribute="bottom" constant="20" id="oZ1-Bb-0qn"/>
                 <constraint firstItem="EuD-Ra-zAP" firstAttribute="trailing" secondItem="I6N-CM-wGt" secondAttribute="trailing" id="qJJ-WY-HVw"/>
-                <constraint firstItem="GCv-bw-zyH" firstAttribute="centerX" secondItem="0lp-3q-KYY" secondAttribute="centerX" id="sYx-6Q-tZn"/>
+                <constraint firstItem="0lp-3q-KYY" firstAttribute="centerX" secondItem="GCv-bw-zyH" secondAttribute="centerX" id="uEx-zs-Uxr"/>
                 <constraint firstItem="GCv-bw-zyH" firstAttribute="top" secondItem="I6N-CM-wGt" secondAttribute="bottom" constant="20" id="usD-67-Go1"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="yDJ-R0-xmL" secondAttribute="trailing" constant="10" id="z7u-c3-v6G"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <point key="canvasLocation" x="47.826086956521742" y="52.901785714285715"/>

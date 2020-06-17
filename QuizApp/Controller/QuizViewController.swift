@@ -24,17 +24,25 @@ class QuizViewController: UIViewController, QuestionViewDelegate {
     @IBOutlet weak var questionView: UIScrollView!
     var customView: QuestionView?
 
+    @IBAction func getLeaderBoard(_ sender: UIButton) {
+        let leaderBoardController = LeaderBoardViewController()
+        leaderBoardController.setQuiz(quiz: self.quiz!)
+        
+        
+        navigationController?.pushViewController(leaderBoardController, animated: true)
+        
+    }
     
     @IBAction func tapStartQuiz(_ sender: UIButton) {
         DispatchQueue.main.async {
             self.questionView.isHidden = false
             if let firstQuiz = self.quiz{
-                self.customView?.questionLabel.text = firstQuiz.questionsArray.first?.question
-                self.customView?.answ1.setTitle(firstQuiz.questionsArray.first?.answers?[0], for: .normal)
-                self.customView?.answ2.setTitle(firstQuiz.questionsArray.first?.answers?[1], for: .normal)
-                self.customView?.answ3.setTitle(firstQuiz.questionsArray.first?.answers?[2], for: .normal)
-                self.customView?.answ4.setTitle(firstQuiz.questionsArray.first?.answers?[3], for: .normal)
-                self.customView?.correctAnswer = firstQuiz.questionsArray.first?.correctAnswer
+                self.customView?.questionLabel.text = (firstQuiz.questions.first as! Question).question
+                self.customView?.answ1.setTitle((firstQuiz.questions.first as! Question).answers[0], for: .normal)
+                self.customView?.answ2.setTitle((firstQuiz.questions.first as! Question).answers[1], for: .normal)
+                self.customView?.answ3.setTitle((firstQuiz.questions.first as! Question).answers[2], for: .normal)
+                self.customView?.answ4.setTitle((firstQuiz.questions.first as! Question).answers[3], for: .normal)
+                self.customView?.correctAnswer = Int((firstQuiz.questions.first as! Question).correct_answer)
             }
         }
         
@@ -56,7 +64,7 @@ class QuizViewController: UIViewController, QuestionViewDelegate {
             
             self.quizTitle.text = self.quiz?.title
             
-            self.quizService.fetchImage(url: self.quiz!.imageUrl) { image in
+            self.quizService.fetchImage(url: self.quiz!.image_url) { image in
                 self.quizImage.image = image
             }
             
@@ -83,7 +91,7 @@ class QuizViewController: UIViewController, QuestionViewDelegate {
 
         currentQuestion += 1
         
-        if(currentQuestion >= (quiz?.questionsArray.count)!){
+        if(currentQuestion >= (quiz?.questions.count)!){
             let endTime : DispatchTime = .now()
             let diff = Double(endTime.uptimeNanoseconds - startTime!.uptimeNanoseconds) / 1_000_000_000
             
@@ -96,7 +104,7 @@ class QuizViewController: UIViewController, QuestionViewDelegate {
                 self.timeLabel.text = "Elapsed time: \(diff) sec"
                 
                 
-                self.quizService.sendResults(quizId: self.quiz!.id, diff: diff, numCorrectAnswers: self.numCorrectAnswers){ response in
+                self.quizService.sendResults(quizId: Int(self.quiz!.id), diff: diff, numCorrectAnswers: self.numCorrectAnswers){ response in
                     
                     print(response)
                     
@@ -111,30 +119,33 @@ class QuizViewController: UIViewController, QuestionViewDelegate {
         }
 
         DispatchQueue.main.asyncAfter(deadline: .now()+0.5){
-        if let customView = Bundle.main.loadNibNamed("QuestionView", owner: self, options: nil)?.first as? QuestionView {
-            self.customView = customView
-            self.questionView.isHidden = true
-            self.questionView.addSubview(customView)
-            customView.delegate = self
-            customView.frame = CGRect(x: CGFloat(self.currentQuestion)*self.questionView.frame.size.width, y: 0, width: self.questionView.frame.size.width, height: self.questionView.frame.size.height)
-            self.questionView.contentSize = CGSize(width: CGFloat(self.currentQuestion+1)*customView.bounds.width, height: self.questionView.frame.size.height)
-            self.questionView.contentOffset = CGPoint(x: CGFloat(self.currentQuestion)*self.questionView.frame.size.width, y: self.questionView.contentOffset.y)
+            if let customView = Bundle.main.loadNibNamed("QuestionView", owner: self, options: nil)?.first as? QuestionView {
+                self.customView = customView
+                self.questionView.isHidden = true
+                self.questionView.addSubview(customView)
+                
+                customView.delegate = self
+                customView.frame = CGRect(x: CGFloat(self.currentQuestion)*self.questionView.frame.size.width, y: 0, width: self.questionView.frame.size.width, height: self.questionView.frame.size.height)
+                
+                self.questionView.contentSize = CGSize(width: CGFloat(self.currentQuestion+1)*customView.bounds.width, height: self.questionView.frame.size.height)
+                
+                self.questionView.contentOffset = CGPoint(x: CGFloat(self.currentQuestion)*self.questionView.frame.size.width, y: self.questionView.contentOffset.y)
 
-        }
+            }
 
-        DispatchQueue.main.async {
+    //        DispatchQueue.main.async {
             self.questionView.isHidden = false
             if let quiz = self.quiz{
-                self.customView?.questionLabel.text = quiz.questionsArray[self.currentQuestion].question
-                self.customView?.answ1.setTitle(quiz.questionsArray[self.currentQuestion].answers?[0], for: .normal)
-                self.customView?.answ2.setTitle(quiz.questionsArray[self.currentQuestion].answers?[1], for: .normal)
-                self.customView?.answ3.setTitle(quiz.questionsArray[self.currentQuestion].answers?[2], for: .normal)
-                self.customView?.answ4.setTitle(quiz.questionsArray[self.currentQuestion].answers?[3], for: .normal)
-                self.customView?.correctAnswer = quiz.questionsArray[self.currentQuestion].correctAnswer
-            }
+                self.customView?.questionLabel.text = (quiz.questions.first as! Question).question
+                self.customView?.answ1.setTitle((quiz.questions.first as! Question).answers[0], for: .normal)
+                self.customView?.answ2.setTitle((quiz.questions.first as! Question).answers[1], for: .normal)
+                self.customView?.answ3.setTitle((quiz.questions.first as! Question).answers[2], for: .normal)
+                self.customView?.answ4.setTitle((quiz.questions.first as! Question).answers[3], for: .normal)
+                self.customView?.correctAnswer = Int((quiz.questions.first as! Question).correct_answer)
+                }
            
             
-        }
+//        }
 
         }
         
@@ -149,5 +160,6 @@ class QuizViewController: UIViewController, QuestionViewDelegate {
         // Pass the selected object to the new view controller.
     }
     */
+
 
 }

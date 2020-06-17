@@ -24,34 +24,34 @@
                     <nil key="highlightedColor"/>
                     <size key="shadowOffset" width="0.0" height="0.0"/>
                 </label>
-                <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" alignment="center" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="mQE-K5-w66" userLabel="firstTwoAnswers">
+                <stackView opaque="NO" contentMode="scaleToFill" distribution="equalCentering" alignment="center" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="mQE-K5-w66" userLabel="firstTwoAnswers">
                     <rect key="frame" x="40" y="67.333333333333329" width="294" height="30"/>
                     <subviews>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" adjustsImageSizeForAccessibilityContentSizeCategory="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IVs-7R-kPU">
-                            <rect key="frame" x="0.0" y="0.0" width="143" height="30"/>
+                            <rect key="frame" x="0.0" y="0.0" width="30" height="30"/>
                             <connections>
                                 <action selector="an1:" destination="iN0-l3-epB" eventType="touchUpInside" id="NRK-rR-jW3"/>
                             </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" adjustsImageSizeForAccessibilityContentSizeCategory="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="c92-T0-IVv">
-                            <rect key="frame" x="151" y="0.0" width="143" height="30"/>
+                            <rect key="frame" x="264" y="0.0" width="30" height="30"/>
                             <connections>
                                 <action selector="an2:" destination="iN0-l3-epB" eventType="touchUpInside" id="yky-vB-sH3"/>
                             </connections>
                         </button>
                     </subviews>
                 </stackView>
-                <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" alignment="center" spacing="100" translatesAutoresizingMaskIntoConstraints="NO" id="po0-1J-Mjv" userLabel="lastTwoAnswers">
+                <stackView opaque="NO" contentMode="scaleToFill" distribution="equalCentering" alignment="center" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="po0-1J-Mjv" userLabel="lastTwoAnswers">
                     <rect key="frame" x="40" y="117.33333333333331" width="294" height="30"/>
                     <subviews>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iOR-iF-985">
-                            <rect key="frame" x="0.0" y="0.0" width="97" height="30"/>
+                            <rect key="frame" x="0.0" y="0.0" width="30" height="30"/>
                             <connections>
                                 <action selector="an3:" destination="iN0-l3-epB" eventType="touchUpInside" id="4C8-Az-eMV"/>
                             </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2j0-ha-dYq">
-                            <rect key="frame" x="197" y="0.0" width="97" height="30"/>
+                            <rect key="frame" x="264" y="0.0" width="30" height="30"/>
                             <connections>
                                 <action selector="an4:" destination="iN0-l3-epB" eventType="touchUpInside" id="SwO-q5-mdX"/>
                             </connections>
