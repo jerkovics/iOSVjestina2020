@@ -94,6 +94,33 @@ class QuizService {
         }
     }
     
+    func fetchLeaderBoard(url: String, completion: @escaping (([Score?]) -> Void)){
+        guard let url = URL(string: url) else{ completion([]); return}
+        var request = URLRequest(url: url)
+        
+        let userDefaults = UserDefaults.standard
+        guard let token = userDefaults.string(forKey: "token") else{ completion([]); return }
+        
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.setValue("\(token)", forHTTPHeaderField: "Authorization")
+        
+        let dataTask = URLSession.shared.dataTask(with: request){(data, response, error) in
+            
+            guard let data = data else { completion([]); return}
+            
+            do {
+                let result = try JSONDecoder().decode([Score].self, from: data)
+                completion(result)
+                
+            } catch {
+                completion([])
+            }
+            
+        }
+        
+        dataTask.resume()
+    }
+    
     
     func sendResults(quizId: Int, diff: Double, numCorrectAnswers: Int, completion: @escaping ((Response?) -> Void)){
         

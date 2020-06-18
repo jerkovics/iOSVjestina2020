@@ -24,6 +24,9 @@ class InitialViewController: UIViewController,  UITableViewDataSource,  UITableV
     
     
     @IBAction func tapLogout(_ sender: UIButton) {
+        UserDefaults.standard.removeObject(forKey: "user_id")
+        UserDefaults.standard.removeObject(forKey: "token")
+        UserDefaults.standard.removeObject(forKey: "username")
         self.navigationController?.present(UINavigationController(rootViewController: LoginViewController()), animated: false, completion: {})
     }
     

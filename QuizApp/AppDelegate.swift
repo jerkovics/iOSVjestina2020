@@ -28,7 +28,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
         
         let navigationController = UINavigationController(rootViewController: first)
-        window?.rootViewController = navigationController
+        navigationController.tabBarItem = UITabBarItem(title: "Quizzes", image: nil,  tag: 0)
+        
+        let settingsController = SettingsViewController()
+        settingsController.tabBarItem = UITabBarItem(title: "Settings", image: nil,  tag: 0)
+        
+        let searchController = UINavigationController(rootViewController: SearchViewController())
+        searchController.tabBarItem = UITabBarItem(title: "Search", image: nil, tag: 0)
+        
+        let tabController = UITabBarController()
+        tabController.viewControllers = [navigationController, settingsController, searchController]
+        
+        window?.rootViewController = tabController
         
         window?.makeKeyAndVisible()
         

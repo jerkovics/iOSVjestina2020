@@ -25,6 +25,15 @@ class QuizViewController: UIViewController, QuestionViewDelegate {
     var customView: QuestionView?
 
     
+    @IBAction func getLeaderBoard(_ sender: UIButton) {
+        let leaderBoardController = LeaderBoardViewController()
+        leaderBoardController.setQuiz(quiz: self.quiz!)
+        
+        navigationController?.pushViewController(leaderBoardController, animated: true)
+        
+    }
+    
+    
     @IBAction func tapStartQuiz(_ sender: UIButton) {
         DispatchQueue.main.async {
             self.questionView.isHidden = false

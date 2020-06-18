@@ -60,6 +60,13 @@
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="0xn-X2-Ji3">
+                    <rect key="frame" x="300" y="303" width="94" height="30"/>
+                    <state key="normal" title="Leaderboard"/>
+                    <connections>
+                        <action selector="getLeaderBoard:" destination="-1" eventType="touchUpInside" id="feS-yr-tbn"/>
+                    </connections>
+                </button>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
@@ -67,9 +74,12 @@
                 <constraint firstItem="Ipa-hJ-Mhi" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="10" id="11O-o3-FtQ"/>
                 <constraint firstItem="EuD-Ra-zAP" firstAttribute="leading" secondItem="I6N-CM-wGt" secondAttribute="leading" id="1Ae-zI-V9g"/>
                 <constraint firstItem="EuD-Ra-zAP" firstAttribute="centerX" secondItem="6U7-jq-vsd" secondAttribute="centerX" id="3Dk-l2-xae"/>
+                <constraint firstItem="0xn-X2-Ji3" firstAttribute="leading" secondItem="0lp-3q-KYY" secondAttribute="trailing" constant="59.5" id="56g-Fs-58g"/>
                 <constraint firstItem="EuD-Ra-zAP" firstAttribute="centerX" secondItem="Ipa-hJ-Mhi" secondAttribute="centerX" id="6YJ-Xe-NZO"/>
+                <constraint firstItem="0xn-X2-Ji3" firstAttribute="top" secondItem="I6N-CM-wGt" secondAttribute="bottom" constant="168" id="860-xo-WCv"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="EuD-Ra-zAP" secondAttribute="bottom" constant="213" id="8nX-zp-h04"/>
                 <constraint firstItem="GCv-bw-zyH" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="87" id="FDb-Sz-zp0"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="0xn-X2-Ji3" secondAttribute="trailing" constant="20" id="H9o-xP-CAL"/>
                 <constraint firstItem="I6N-CM-wGt" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="20" id="I24-cv-d1d"/>
                 <constraint firstItem="6U7-jq-vsd" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="10" id="KAn-8D-hbu"/>
                 <constraint firstItem="Ipa-hJ-Mhi" firstAttribute="top" secondItem="6U7-jq-vsd" secondAttribute="bottom" constant="19" id="KNg-cG-rea"/>

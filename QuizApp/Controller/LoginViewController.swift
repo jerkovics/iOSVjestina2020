@@ -34,13 +34,25 @@ class LoginViewController: UIViewController {
             
             if token != nil && id != nil {
                 let userDefaults = UserDefaults.standard
+                userDefaults.set(korisnickoIme, forKey:  "username")
                 userDefaults.set(token, forKey: "token")
                 userDefaults.set(id, forKey: "user_id")
+                
                 DispatchQueue.main.async {
-                    self.initialController.modalPresentationStyle = .fullScreen
-                    self.present(self.initialController, animated: false, completion: {})
-//                    self.navigationController?.popToViewController(self.initialController, animated: false)
-                }
+                        let first: UIViewController = InitialViewController()
+                        let navigationController = UINavigationController(rootViewController: first)
+                        navigationController.tabBarItem = UITabBarItem(title: "Quizzes", image: nil, tag: 0)
+                        
+                        let settingsController = SettingsViewController()
+                        settingsController.tabBarItem = UITabBarItem(title: "Settings", image: nil,  tag: 0)
+                        
+                        let tabController = UITabBarController()
+                        tabController.viewControllers = [navigationController, settingsController]
+                        
+                        (UIApplication.shared.delegate as! AppDelegate).window?.rootViewController = tabController
+                        
+                        //                    self.navigationController?.popToViewController(self.initialController, animated: false)
+                    }
             } else{
                 DispatchQueue.main.async {
                     self.errorLabel.isHidden = false
