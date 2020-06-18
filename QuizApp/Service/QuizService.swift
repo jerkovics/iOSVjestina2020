@@ -7,11 +7,12 @@
 
 import Foundation
 import UIKit
+import CoreData
 
 class QuizService {
     
     func fetchQuizzesFromDB(completion: @escaping (([Quiz]?) -> Void)){
-        completion(DataController.shared.fetchQuizzes())
+            completion(DataController.shared.fetchQuizzes())
     }
     
     func fetchQuizzes(urlString: String, completion: @escaping (([Quiz?]) -> Void)){

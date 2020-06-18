@@ -16,7 +16,7 @@ extension Question {
         return NSFetchRequest<Question>(entityName: "Question")
     }
 
-    @NSManaged public var answers: NSObject?
+    @NSManaged public var answers: [String]
     @NSManaged public var correct_answer: Int32
     @NSManaged public var id: Int32
     @NSManaged public var question: String?

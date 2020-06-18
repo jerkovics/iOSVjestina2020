@@ -38,10 +38,10 @@ class QuizViewController: UIViewController, QuestionViewDelegate {
             self.questionView.isHidden = false
             if let firstQuiz = self.quiz{
                 self.customView?.questionLabel.text = (firstQuiz.questions.first as! Question).question
-                self.customView?.answ1.setTitle((firstQuiz.questions.first as! Question).answers[0], for: .normal)
-                self.customView?.answ2.setTitle((firstQuiz.questions.first as! Question).answers[1], for: .normal)
-                self.customView?.answ3.setTitle((firstQuiz.questions.first as! Question).answers[2], for: .normal)
-                self.customView?.answ4.setTitle((firstQuiz.questions.first as! Question).answers[3], for: .normal)
+                self.customView?.answ1.setTitle((firstQuiz.questions.first as! Question).answers[0] , for: .normal)
+                self.customView?.answ2.setTitle((firstQuiz.questions.first as! Question).answers[1] , for: .normal)
+                self.customView?.answ3.setTitle((firstQuiz.questions.first as! Question).answers[2] , for: .normal)
+                self.customView?.answ4.setTitle((firstQuiz.questions.first as! Question).answers[3] , for: .normal)
                 self.customView?.correctAnswer = Int((firstQuiz.questions.first as! Question).correct_answer)
             }
         }
@@ -64,7 +64,7 @@ class QuizViewController: UIViewController, QuestionViewDelegate {
             
             self.quizTitle.text = self.quiz?.title
             
-            self.quizService.fetchImage(url: self.quiz!.image_url) { image in
+            self.quizService.fetchImage(url: self.quiz!.image_url!) { image in
                 self.quizImage.image = image
             }
             
@@ -137,10 +137,10 @@ class QuizViewController: UIViewController, QuestionViewDelegate {
             self.questionView.isHidden = false
             if let quiz = self.quiz{
                 self.customView?.questionLabel.text = (quiz.questions[self.currentQuestion] as! Question).question
-                self.customView?.answ1.setTitle((quiz.questions[self.currentQuestion] as! Question).answers[0], for: .normal)
-                self.customView?.answ2.setTitle((quiz.questions[self.currentQuestion] as! Question).answers[1], for: .normal)
-                self.customView?.answ3.setTitle((quiz.questions[self.currentQuestion] as! Question).answers[2], for: .normal)
-                self.customView?.answ4.setTitle((quiz.questions[self.currentQuestion] as! Question).answers[3], for: .normal)
+                self.customView?.answ1.setTitle((quiz.questions[self.currentQuestion] as! Question).answers[0] , for: .normal)
+                self.customView?.answ2.setTitle((quiz.questions[self.currentQuestion] as! Question).answers[1] , for: .normal)
+                self.customView?.answ3.setTitle((quiz.questions[self.currentQuestion] as! Question).answers[2] , for: .normal)
+                self.customView?.answ4.setTitle((quiz.questions[self.currentQuestion] as! Question).answers[3] , for: .normal)
                 self.customView?.correctAnswer = Int((quiz.questions[self.currentQuestion] as! Question).correct_answer)
                 }
            

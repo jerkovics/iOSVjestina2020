@@ -20,7 +20,7 @@ extension Quiz {
     @NSManaged public var id: Int32
     @NSManaged public var image_url: URL?
     @NSManaged public var level: Int32
-    @NSManaged public var questions: NSObject?
+    @NSManaged public var questions: [NSObject]
     @NSManaged public var quiz_description: String?
     @NSManaged public var title: String?
 

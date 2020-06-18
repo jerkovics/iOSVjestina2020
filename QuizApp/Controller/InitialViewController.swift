@@ -2,110 +2,114 @@
 //  InitialViewController.swift
 //  QuizApp
 //
-//  Created by Sanja Jerkovic on 5/10/20.
+//  Created by Sanja Jerkovic on 6/21/20.
 //
 
 import UIKit
 
 class InitialViewController: UIViewController,  UITableViewDataSource,  UITableViewDelegate {
-    
-    let quizService = QuizService()
-//    let quizTableViewController = QuizTableViewController()
+
+    @IBOutlet weak var errorLabel: UILabel!
     
     @IBOutlet weak var funFactField: UILabel!
-    @IBOutlet weak var errorLabel: UILabel!
-    @IBOutlet weak var questionView: UIView!
     @IBOutlet weak var quizTableView: UITableView!
     
-    var customView: QuestionView?
-    
+    let quizService = QuizService()
     let numOfTypes = CategoryType.numOfTypes()
     var quizzes: [Quiz] = []
+    var refreshControl = UIRefreshControl()
     
-    
-    @IBAction func tapLogout(_ sender: UIButton) {
-        UserDefaults.standard.removeObject(forKey: "user_id")
-        UserDefaults.standard.removeObject(forKey: "token")
-        UserDefaults.standard.removeObject(forKey: "username")
-        (UIApplication.shared.delegate as! AppDelegate).window?.rootViewController = LoginViewController()
-
+    @objc func refresh() {
+        DispatchQueue.main.async {
+            self.refreshControl.endRefreshing()
+            self.quizTableView.reloadData()
+        }
     }
     
     override func viewDidLoad() {
+        super.viewDidLoad()
         
         quizTableView.delegate = self
         quizTableView.dataSource = self
         
         quizTableView.register(UINib(nibName: "QuizTableViewCell", bundle: nil), forCellReuseIdentifier: "quizCell")
-
+        
 //        quizService.fetchQuizzesFromDB(){ (quizzes) in
 //            if let quizzes = quizzes{
 //                self.quizzes = quizzes
 //            }
 //        }
+
+        // Do any additional setup after loading the view.
+    }
+
+    @IBAction func tapLogout(_ : UIButton) {
+        UserDefaults.standard.removeObject(forKey: "user_id")
+        UserDefaults.standard.removeObject(forKey: "token")
+        UserDefaults.standard.removeObject(forKey: "username")
+        (UIApplication.shared.delegate as! AppDelegate).window?.rootViewController = LoginViewController()
     }
     
-    @IBAction func buttonTapped(_ sender: Any) {
+    
+    @IBAction func tapDohvati(_ : UIButton) {
         errorLabel.isHidden = true
         quizService.fetchQuizzes(urlString: "https://iosquiz.herokuapp.com/api/quizzes") { [weak self] (quizes) in
             
             if !quizes.isEmpty {
                 DispatchQueue.main.async {
-//                    print(quizes)
+                    //                    print(quizes)
                     self?.setQuizzes(quizzes: quizes as! [Quiz])
                     self?.quizTableView.reloadData()
                 }
                 
-            //get questions from quizzes
+                //get questions from quizzes
                 var questions : [String] = []
                 
                 for quiz in quizes{
                     for question in quiz!.questions {
-                        questions.append((question as! Question).question)
+                        questions.append((question as! Question).question!)
                     }
                 }
-            
+                
                 
                 
                 let funFacts = questions.filter({$0.contains("NBA")})
                 let numOfFunFacts = funFacts.count
                 
-//                print(numOfFunFacts)
+                //                print(numOfFunFacts)
                 
                 DispatchQueue.main.async {
                     self?.funFactField.text = "Fun Facts: " + String(numOfFunFacts)
                 }
-
                 
-            
+                
+                
             } else{
                 DispatchQueue.main.async {
                     self?.errorLabel.isHidden = false
                 }
             }
         }
-        
     }
     
-
-     func numberOfSections(in tableView: UITableView) -> Int {
+    func numberOfSections(in tableView: UITableView) -> Int {
         return numOfTypes
     }
     
-     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return quizzes.filter{(quiz: Quiz) -> Bool in
             quiz.category == CategoryType.allCases[section].rawValue}.count
     }
     
     
-     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "quizCell", for: indexPath) as? QuizTableViewCell
         
         let quiz = quizzes.filter{(quiz: Quiz) -> Bool in
             quiz.category == CategoryType.allCases[indexPath.section].rawValue}[indexPath.row]
         
         
-        quizService.fetchImage(url: quiz.image_url) { image in
+        quizService.fetchImage(url: quiz.image_url!) { image in
             cell?.quizImage.image = image
         }
         
@@ -121,8 +125,8 @@ class InitialViewController: UIViewController,  UITableViewDataSource,  UITableV
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 129
     }
-
-     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+    
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         
         return "\(CategoryType.allCases[section])"
     }
@@ -144,4 +148,15 @@ class InitialViewController: UIViewController,  UITableViewDataSource,  UITableV
         self.quizzes = quizzes
     }
     
+
+    /*
+    // MARK: - Navigation
+
+    // In a storyboard-based application, you will often want to do a little preparation before navigation
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        // Get the new view controller using segue.destination.
+        // Pass the selected object to the new view controller.
+    }
+    */
+
 }
