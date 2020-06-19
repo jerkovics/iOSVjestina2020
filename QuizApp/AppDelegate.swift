@@ -21,13 +21,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let token = userDefaults.string(forKey: "token")
         let id = userDefaults.string(forKey: "user_id")
         
-        var first: UIViewController = LoginViewController()
-        
         if(token != nil && id != nil){
-            first = InitialViewController()
+            let navigationController = UINavigationController(rootViewController: LoginViewController())
+            window?.rootViewController = navigationController
+            
+            window?.makeKeyAndVisible()
+            return true
         }
         
-        let navigationController = UINavigationController(rootViewController: first)
+        let navigationController = UINavigationController(rootViewController: InitialViewController())
         navigationController.tabBarItem = UITabBarItem(title: "Quizzes", image: nil,  tag: 0)
         
         let settingsController = SettingsViewController()

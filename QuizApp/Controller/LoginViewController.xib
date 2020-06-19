@@ -14,7 +14,9 @@
             <connections>
                 <outlet property="errorLabel" destination="Q3r-me-ZwG" id="edH-Q0-4hj"/>
                 <outlet property="korisnickoIme" destination="ENc-Pq-14Q" id="vn9-xD-ZBb"/>
+                <outlet property="loginButton" destination="x9m-Ll-ASG" id="MQB-ST-8Tk"/>
                 <outlet property="lozinka" destination="zi2-cL-JoA" id="XhL-dd-73Z"/>
+                <outlet property="quizAppLabel" destination="a6B-CY-PcU" id="NZN-i4-FHv"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -24,19 +26,19 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="korisnicko ime" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ENc-Pq-14Q">
-                    <rect key="frame" x="30" y="94" width="354" height="30"/>
+                    <rect key="frame" x="30" y="99.5" width="354" height="30"/>
                     <nil key="textColor"/>
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                     <textInputTraits key="textInputTraits"/>
                 </textField>
                 <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="lozinka" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="zi2-cL-JoA">
-                    <rect key="frame" x="30" y="154" width="354" height="30"/>
+                    <rect key="frame" x="30" y="159.5" width="354" height="30"/>
                     <nil key="textColor"/>
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                     <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
                 </textField>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="x9m-Ll-ASG">
-                    <rect key="frame" x="188" y="214" width="38" height="30"/>
+                    <rect key="frame" x="188" y="219.5" width="38" height="30"/>
                     <color key="backgroundColor" red="0.6314828992" green="1" blue="0.6327755451" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <state key="normal" title="Login"/>
                     <connections>
@@ -44,25 +46,34 @@
                     </connections>
                 </button>
                 <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Neispravni podatci!" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Q3r-me-ZwG">
-                    <rect key="frame" x="30" y="185" width="354" height="21"/>
+                    <rect key="frame" x="30" y="190.5" width="354" height="21"/>
                     <color key="tintColor" red="1" green="0.14913141730000001" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                     <color key="textColor" red="1" green="0.14913141730000001" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <color key="highlightedColor" red="1" green="0.14913141730000001" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                 </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Quiz App" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="a6B-CY-PcU">
+                    <rect key="frame" x="100" y="64" width="214" height="20.5"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
                 <constraint firstItem="x9m-Ll-ASG" firstAttribute="centerX" secondItem="zi2-cL-JoA" secondAttribute="centerX" id="0gM-Qh-602"/>
+                <constraint firstItem="ENc-Pq-14Q" firstAttribute="top" secondItem="a6B-CY-PcU" secondAttribute="bottom" constant="15" id="1Kh-6C-9Yx"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="a6B-CY-PcU" secondAttribute="trailing" constant="100" id="9mx-mD-4sB"/>
                 <constraint firstItem="zi2-cL-JoA" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="30" id="AV7-Wx-QhZ"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="Q3r-me-ZwG" secondAttribute="trailing" constant="30" id="Bnf-My-Cdd"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="ENc-Pq-14Q" secondAttribute="trailing" constant="30" id="Di0-pn-YLN"/>
+                <constraint firstItem="a6B-CY-PcU" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="20" id="HQp-0Q-ehx"/>
                 <constraint firstItem="ENc-Pq-14Q" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="30" id="MEV-5q-jl7"/>
+                <constraint firstItem="a6B-CY-PcU" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="100" id="QnK-u3-7eE"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="zi2-cL-JoA" secondAttribute="trailing" constant="30" id="Y2r-Hp-GxU"/>
                 <constraint firstItem="Q3r-me-ZwG" firstAttribute="top" secondItem="zi2-cL-JoA" secondAttribute="bottom" constant="1" id="Yds-mc-2Ok"/>
                 <constraint firstItem="x9m-Ll-ASG" firstAttribute="top" secondItem="zi2-cL-JoA" secondAttribute="bottom" constant="30" id="Z9l-5g-dho"/>
                 <constraint firstItem="Q3r-me-ZwG" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="30" id="f9k-8n-ill"/>
-                <constraint firstItem="ENc-Pq-14Q" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="50" id="jDD-ap-PiA"/>
                 <constraint firstItem="x9m-Ll-ASG" firstAttribute="top" secondItem="Q3r-me-ZwG" secondAttribute="bottom" constant="8" id="nNE-Ji-mi8"/>
                 <constraint firstItem="zi2-cL-JoA" firstAttribute="top" secondItem="ENc-Pq-14Q" secondAttribute="bottom" constant="30" id="nf2-Kl-B7y"/>
             </constraints>

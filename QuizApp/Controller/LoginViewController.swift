@@ -9,18 +9,82 @@ import UIKit
 
 class LoginViewController: UIViewController {
 
+    @IBOutlet weak var quizAppLabel: UILabel!
     @IBOutlet weak var korisnickoIme: UITextField!
     @IBOutlet weak var lozinka: UITextField!
     @IBOutlet weak var errorLabel: UILabel!
+    @IBOutlet weak var loginButton: UIButton!
     
-
     var quizService = QuizService()
     let initialController = UINavigationController(rootViewController: InitialViewController())
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        quizAppLabel.transform = CGAffineTransform(scaleX: 0.0, y: 0.0)
+        
+        quizAppLabel.alpha = 0
+        korisnickoIme.alpha = 0
+        lozinka.alpha = 0
+        loginButton.alpha = 0
+        
+        korisnickoIme.transform = CGAffineTransform(translationX: -korisnickoIme.frame.origin.x - korisnickoIme.frame.width, y: 0)
 
+        lozinka.transform = CGAffineTransform(translationX: -lozinka.frame.origin.x - lozinka.frame.width, y: 0)
+        
+        loginButton.transform = CGAffineTransform(translationX: -loginButton.frame.origin.x - loginButton.frame.width, y: 0)
+        
+        animateLoginIn()
         // Do any additional setup after loading the view.
+    }
+    
+    func animateLoginIn(){
+        UIView.animate(withDuration: 1.35, delay: 0,  options: [.curveEaseOut], animations: {
+            self.quizAppLabel.transform = CGAffineTransform(scaleX: 1.0, y: 1.0)
+            
+            self.quizAppLabel.alpha = 1
+            self.korisnickoIme.alpha = 1
+            self.lozinka.alpha = 1
+            self.loginButton.alpha = 1
+            
+
+        })
+        
+        UIView.animate(withDuration: 1.0, delay: 0,  options: [.curveEaseOut], animations: {
+            self.korisnickoIme.transform = CGAffineTransform(translationX: 0, y: 0)
+        })
+        
+        UIView.animate(withDuration: 1.0, delay: 0.2, options: [.curveEaseOut], animations: {
+            self.lozinka.transform = CGAffineTransform(translationX: 0, y: 0)
+        })
+        
+        UIView.animate(withDuration: 1.0, delay: 0.4, options: [.curveEaseOut], animations: {
+            self.loginButton.transform = CGAffineTransform(translationX: 0, y: 0)
+        })
+    }
+    
+    func animateLoginOut(completion: @escaping (() -> Void)){
+        UIView.animate(withDuration: 1.0, delay: 0, options: [.curveEaseOut], animations: {
+            self.quizAppLabel.transform = CGAffineTransform(translationX: 0, y: -self.quizAppLabel.frame.origin.y - self.quizAppLabel.frame.height)
+            
+        })
+        
+        UIView.animate(withDuration: 1.0, delay: 0.2, options: [.curveEaseOut], animations: {
+            self.korisnickoIme.transform = CGAffineTransform(translationX: 0, y: -self.korisnickoIme.frame.origin.y - self.korisnickoIme.frame.height)
+
+        })
+        
+        UIView.animate(withDuration: 1.0, delay: 0.4, options: [.curveEaseOut], animations: {
+            self.lozinka.transform = CGAffineTransform(translationX: 0, y: -self.lozinka.frame.origin.y - self.lozinka.frame.height)
+            
+        })
+        
+        UIView.animate(withDuration: 1.0, delay: 0.8, options: [.curveEaseOut], animations: {
+            self.loginButton.transform = CGAffineTransform(translationX: 0, y: -self.loginButton.frame.origin.y - self.loginButton.frame.height)
+            
+        }){ _ in
+            completion()
+        }
     }
     
     @IBAction func tapLogin(_ sender: UIButton) {
@@ -38,7 +102,9 @@ class LoginViewController: UIViewController {
                 userDefaults.set(token, forKey: "token")
                 userDefaults.set(id, forKey: "user_id")
                 
+                
                 DispatchQueue.main.async {
+                    self.animateLoginOut(){
                         let first: UIViewController = InitialViewController()
                         let navigationController = UINavigationController(rootViewController: first)
                         navigationController.tabBarItem = UITabBarItem(title: "Quizzes", image: nil, tag: 0)
@@ -50,9 +116,13 @@ class LoginViewController: UIViewController {
                         tabController.viewControllers = [navigationController, settingsController]
                         
                         (UIApplication.shared.delegate as! AppDelegate).window?.rootViewController = tabController
+                    }
+                }
+
+                    
                         
                         //                    self.navigationController?.popToViewController(self.initialController, animated: false)
-                    }
+                
             } else{
                 DispatchQueue.main.async {
                     self.errorLabel.isHidden = false
