@@ -112,8 +112,11 @@ class LoginViewController: UIViewController {
                         let settingsController = SettingsViewController()
                         settingsController.tabBarItem = UITabBarItem(title: "Settings", image: nil,  tag: 0)
                         
+                        let searchController = UINavigationController(rootViewController: SearchViewController())
+                        searchController.tabBarItem = UITabBarItem(title: "Search", image: nil, tag: 0)
+                        
                         let tabController = UITabBarController()
-                        tabController.viewControllers = [navigationController, settingsController]
+                        tabController.viewControllers = [navigationController, settingsController, searchController]
                         
                         (UIApplication.shared.delegate as! AppDelegate).window?.rootViewController = tabController
                     }
