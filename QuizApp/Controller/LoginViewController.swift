@@ -8,7 +8,7 @@
 import UIKit
 
 class LoginViewController: UIViewController {
-
+    
     @IBOutlet weak var quizAppLabel: UILabel!
     @IBOutlet weak var korisnickoIme: UITextField!
     @IBOutlet weak var lozinka: UITextField!
@@ -29,13 +29,12 @@ class LoginViewController: UIViewController {
         loginButton.alpha = 0
         
         korisnickoIme.transform = CGAffineTransform(translationX: -korisnickoIme.frame.origin.x - korisnickoIme.frame.width, y: 0)
-
+        
         lozinka.transform = CGAffineTransform(translationX: -lozinka.frame.origin.x - lozinka.frame.width, y: 0)
         
         loginButton.transform = CGAffineTransform(translationX: -loginButton.frame.origin.x - loginButton.frame.width, y: 0)
         
         animateLoginIn()
-        // Do any additional setup after loading the view.
     }
     
     func animateLoginIn(){
@@ -47,7 +46,7 @@ class LoginViewController: UIViewController {
             self.lozinka.alpha = 1
             self.loginButton.alpha = 1
             
-
+            
         })
         
         UIView.animate(withDuration: 1.0, delay: 0,  options: [.curveEaseOut], animations: {
@@ -71,7 +70,7 @@ class LoginViewController: UIViewController {
         
         UIView.animate(withDuration: 1.0, delay: 0.2, options: [.curveEaseOut], animations: {
             self.korisnickoIme.transform = CGAffineTransform(translationX: 0, y: -self.korisnickoIme.frame.origin.y - self.korisnickoIme.frame.height)
-
+            
         })
         
         UIView.animate(withDuration: 1.0, delay: 0.4, options: [.curveEaseOut], animations: {
@@ -91,8 +90,7 @@ class LoginViewController: UIViewController {
         DispatchQueue.main.async {
             self.errorLabel.isHidden = true
         }
-        guard let korisnickoIme = self.korisnickoIme.text else { return }
-        guard let lozinka = self.lozinka.text else { return }
+        guard let korisnickoIme = self.korisnickoIme.text, let lozinka = self.lozinka.text else { return }
         
         quizService.login(urlString: "https://iosquiz.herokuapp.com/api/session", korisnickoIme: korisnickoIme , lozinka: lozinka){ (token, id) in
             
@@ -121,10 +119,6 @@ class LoginViewController: UIViewController {
                         (UIApplication.shared.delegate as! AppDelegate).window?.rootViewController = tabController
                     }
                 }
-
-                    
-                        
-                        //                    self.navigationController?.popToViewController(self.initialController, animated: false)
                 
             } else{
                 DispatchQueue.main.async {
@@ -135,15 +129,4 @@ class LoginViewController: UIViewController {
         }
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }

@@ -10,11 +10,12 @@ import UIKit
 class InitialViewController: UIViewController,  UITableViewDataSource,  UITableViewDelegate {
     
     let quizService = QuizService()
-//    let quizTableViewController = QuizTableViewController()
+    private let appDelegate = UIApplication.shared.delegate as! AppDelegate
+    private let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     
     @IBOutlet weak var funFactField: UILabel!
     @IBOutlet weak var errorLabel: UILabel!
-    @IBOutlet weak var questionView: UIView!
+
     @IBOutlet weak var quizTableView: UITableView!
     
     var customView: QuestionView?
@@ -30,6 +31,15 @@ class InitialViewController: UIViewController,  UITableViewDataSource,  UITableV
         self.navigationController?.present(UINavigationController(rootViewController: LoginViewController()), animated: false, completion: {})
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        do{
+            quizzes = try context.fetch(Quiz.fetchRequest())
+        } catch let error as NSError{
+            print("Could not fetch. \(error), \(error.userInfo)")
+        }
+    }
+    
     override func viewDidLoad() {
         
         quizTableView.delegate = self
@@ -40,8 +50,10 @@ class InitialViewController: UIViewController,  UITableViewDataSource,  UITableV
     }
     
     @IBAction func buttonTapped(_ sender: Any) {
-        errorLabel.isHidden = true
-        quizService.fetchQuizzes(urlString: "https://iosquiz.herokuapp.com/api/quizzes") { [weak self] (quizes) in
+        DispatchQueue.main.async {
+
+            self.errorLabel.isHidden = true
+            self.quizService.fetchQuizzes(urlString: "https://iosquiz.herokuapp.com/api/quizzes") { [weak self] (quizes) in
             
             if !quizes.isEmpty {
                 DispatchQueue.main.async {
@@ -54,11 +66,10 @@ class InitialViewController: UIViewController,  UITableViewDataSource,  UITableV
                 var questions : [String] = []
                 
                 for quiz in quizes{
-                    for question in quiz!.questionsArray {
-                        questions.append(question.question!)
+                    for question in quiz!.relationship! {
+                        questions.append((question as! Question).question!)
                     }
                 }
-            
                 
                 
                 let funFacts = questions.filter({$0.contains("NBA")})
@@ -77,6 +88,7 @@ class InitialViewController: UIViewController,  UITableViewDataSource,  UITableV
                     self?.errorLabel.isHidden = false
                 }
             }
+            }
         }
         
     }
@@ -88,25 +100,25 @@ class InitialViewController: UIViewController,  UITableViewDataSource,  UITableV
     
      func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return quizzes.filter{(quiz: Quiz) -> Bool in
-            quiz.category == CategoryType.allCases[section]}.count
+            quiz.category == CategoryType.allCases[section].rawValue}.count
     }
     
     
      func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        var cell = tableView.dequeueReusableCell(withIdentifier: "quizCell", for: indexPath) as? QuizTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "quizCell", for: indexPath) as? QuizTableViewCell
         
         let quiz = quizzes.filter{(quiz: Quiz) -> Bool in
-            quiz.category == CategoryType.allCases[indexPath.section]}[indexPath.row]
+            quiz.category == CategoryType.allCases[indexPath.section].rawValue}[indexPath.row]
         
         
-        quizService.fetchImage(url: quiz.imageUrl) { image in
+        quizService.fetchImage(url: quiz.image_url!) { image in
             cell?.quizImage.image = image
         }
         
         DispatchQueue.main.async {
             cell?.quizTitle.text = quiz.title
-            cell?.quizLevel.text = String(quiz.level)
-            cell?.quizDescription.text = quiz.description
+            cell?.quizLevel.text = String(repeating: "*", count: Int(quiz.level))
+            cell?.quizDescription.text = quiz.quiz_description
         }
         
         return cell!
@@ -125,7 +137,7 @@ class InitialViewController: UIViewController,  UITableViewDataSource,  UITableV
         tableView.deselectRow(at: indexPath, animated: true)
         
         let quiz = quizzes.filter{(quiz: Quiz) -> Bool in
-            quiz.category == CategoryType.allCases[indexPath.section]}[indexPath.row]
+            quiz.category == CategoryType.allCases[indexPath.section].rawValue}[indexPath.row]
         
         let quizController = QuizViewController()
         quizController.setQuiz(quiz: quiz)
