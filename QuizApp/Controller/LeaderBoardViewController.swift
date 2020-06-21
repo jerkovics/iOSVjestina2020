@@ -19,21 +19,18 @@ class LeaderBoardViewController: UIViewController, UITableViewDataSource,  UITab
         
         leaderBoardTableVIew.delegate = self
         leaderBoardTableVIew.dataSource = self
-        guard let id = quiz?.id else { return }
         leaderBoardTableVIew.register(UINib(nibName: "ScoreTableViewCell", bundle: nil), forCellReuseIdentifier: "scoreCell")
-        print("https://iosquiz.herokuapp.com/api/score?quiz_id=\(id)")
+        
+        guard let id = quiz?.id else { return }
         quizService.fetchLeaderBoard(url: "https://iosquiz.herokuapp.com/api/score?quiz_id=\(id)"){ (scores) in
             
-            //            print(scores)
             self.scores = Array(scores.filter{ (score) in
                 score?.score != nil}.prefix(20)) as! Array<Score>
             
             DispatchQueue.main.async {
                 self.leaderBoardTableVIew.reloadData()
             }
-            //            print(self.scores)
         }
-        // Do any additional setup after loading the view.
     }
     
     func setQuiz(quiz: Quiz){
@@ -59,14 +56,5 @@ class LeaderBoardViewController: UIViewController, UITableViewDataSource,  UITab
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 101
     }
-    
-    /*
-     // MARK: - Navigation
-     // In a storyboard-based application, you will often want to do a little preparation before navigation
-     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-     // Get the new view controller using segue.destination.
-     // Pass the selected object to the new view controller.
-     }
-     */
     
 }

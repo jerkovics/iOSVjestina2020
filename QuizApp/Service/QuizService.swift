@@ -7,13 +7,31 @@
 
 import Foundation
 import UIKit
+import CoreData
 
 class QuizService {
+    
+    func retrieveQuizzes(searched: String, completion: @escaping (([Quiz?]) -> Void)){
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        let context = appDelegate.persistentContainer.viewContext
+        
+        let request: NSFetchRequest<Quiz> =  Quiz.fetchRequest()
+        request.predicate = NSPredicate(format: "title CONTAINS %@ OR quiz_description CONTAINS %@", searched, searched)
+        
+        do{
+            let quizzes = try context.fetch(request)
+            completion(quizzes)
+        } catch{
+            print("error")
+            completion([])
+        }
+        
+    }
     
     func fetchQuizzes(urlString: String, completion: @escaping (([Quiz?]) -> Void)){
         guard let url = URL(string: urlString) else{ completion([]); return}
         let request = URLRequest(url: url)
-            
+        
         let dataTask = URLSession.shared.dataTask(with: request){(data, response, error) in
             
             guard let data = data else { completion([]); return}
@@ -28,16 +46,16 @@ class QuizService {
                 guard let quizzes = dictionary["quizzes"] as? [Any] else{ completion([]); return}
                 
                 for quiz in quizzes {
-                    if let quiz = Quiz(json: quiz) {
+                    if let quiz = Quiz.createFrom(json: quiz as! [String : Any]) {
                         quizzesArray.append(quiz)
-                        }
                     }
-            
+                }
+                
                 completion(quizzesArray)
                 
             } catch {
                 completion([])
-                }
+            }
             
         }
         
@@ -50,36 +68,34 @@ class QuizService {
         guard let url = URL(string: urlString) else { completion(nil, nil); return }
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
-            
-        // HTTP Request Parameters which will be sent in HTTP Request Body
+        
         let postString = "username=\(korisnickoIme)&password=\(lozinka)";
-        // Set HTTP Request Body
         request.httpBody = postString.data(using: String.Encoding.utf8);
-
-            
+        
+        
         let dataTask = URLSession.shared.dataTask(with: request){(data, response, error) in
             guard let data = data else {completion(nil, nil); return }
-                    
+            
             do {
                 let json = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any]
-                        
-                        
+                
+                
                 if let token = json?["token"] as? String,
                     let id = json?["user_id"] as? Int{
-                                completion(token, id)
-                            } else {
-                                completion(nil, nil)
-                            }
-                        
-                        
+                    completion(token, id)
+                } else {
+                    completion(nil, nil)
+                }
+                
+                
             } catch {
                 completion(nil, nil)
             }
-                
+            
         }
         
         dataTask.resume()
-       
+        
     }
     
     func fetchImage(url: URL, completion: @escaping ((UIImage?) -> Void)){
@@ -133,26 +149,23 @@ class QuizService {
         request.httpMethod = "POST"
         request.setValue("Application/json", forHTTPHeaderField: "Content-Type")
         request.setValue("\(token)", forHTTPHeaderField: "Authorization")
-            
-        // HTTP Request Parameters which will be sent in HTTP Request Body
+        
         let parameters = ["quiz_id": quizId, "user_id": userId, "time": diff, "no_of_correct": numCorrectAnswers] as [String : Any]
-            
-//            let postString = "quiz_id=\(quizId)&user_id=\(userId)&time=\(diff)&no_of_correct\(numCorrectAnswers)";
-            
+        
         do {
-            request.httpBody = try JSONSerialization.data(withJSONObject: parameters, options: .prettyPrinted) // pass dictionary to nsdata object and set it as request body
+            request.httpBody = try JSONSerialization.data(withJSONObject: parameters, options: .prettyPrinted)
         } catch let error {
-                print(error.localizedDescription)
+            print(error.localizedDescription)
         }
-            
+        
         let dataTask = URLSession.shared.dataTask(with: request){(data, response, error) in
             
             if let response = response as? HTTPURLResponse {
-                    completion(Response(rawValue: response.statusCode))
+                completion(Response(rawValue: response.statusCode))
             } else {
-                    completion(nil)
+                completion(nil)
             }
-                
+            
         }
         
         dataTask.resume()

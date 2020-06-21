@@ -23,7 +23,7 @@ class QuizViewController: UIViewController, QuestionViewDelegate {
     @IBOutlet weak var timeLabel: UILabel!
     @IBOutlet weak var questionView: UIScrollView!
     var customView: QuestionView?
-
+    
     
     @IBAction func getLeaderBoard(_ sender: UIButton) {
         let leaderBoardController = LeaderBoardViewController()
@@ -38,12 +38,12 @@ class QuizViewController: UIViewController, QuestionViewDelegate {
         DispatchQueue.main.async {
             self.questionView.isHidden = false
             if let firstQuiz = self.quiz{
-                self.customView?.questionLabel.text = firstQuiz.questionsArray.first?.question
-                self.customView?.answ1.setTitle(firstQuiz.questionsArray.first?.answers?[0], for: .normal)
-                self.customView?.answ2.setTitle(firstQuiz.questionsArray.first?.answers?[1], for: .normal)
-                self.customView?.answ3.setTitle(firstQuiz.questionsArray.first?.answers?[2], for: .normal)
-                self.customView?.answ4.setTitle(firstQuiz.questionsArray.first?.answers?[3], for: .normal)
-                self.customView?.correctAnswer = firstQuiz.questionsArray.first?.correctAnswer
+                self.customView?.questionLabel.text = (firstQuiz.relationship?.firstObject as! Question).question
+                self.customView?.answ1.setTitle((firstQuiz.relationship?.firstObject as! Question).answers![0] , for: .normal)
+                self.customView?.answ2.setTitle((firstQuiz.relationship?.firstObject as! Question).answers![1] , for: .normal)
+                self.customView?.answ3.setTitle((firstQuiz.relationship?.firstObject as! Question).answers![2] , for: .normal)
+                self.customView?.answ4.setTitle((firstQuiz.relationship?.firstObject as! Question).answers![3] , for: .normal)
+                self.customView?.correctAnswer = Int((firstQuiz.relationship?.firstObject as! Question).correct_answer)
             }
         }
         
@@ -54,18 +54,17 @@ class QuizViewController: UIViewController, QuestionViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-//        questionView.translatesAutoresizingMaskIntoConstraints = false
         questionView.isPagingEnabled = true
         questionView.isScrollEnabled = false
-
-
+        
+        
         DispatchQueue.main.async {
             self.correctAnswersLabel.isHidden = true
             self.timeLabel.isHidden = true
             
             self.quizTitle.text = self.quiz?.title
             
-            self.quizService.fetchImage(url: self.quiz!.imageUrl) { image in
+            self.quizService.fetchImage(url: self.quiz!.image_url!) { image in
                 self.quizImage.image = image
             }
             
@@ -77,9 +76,8 @@ class QuizViewController: UIViewController, QuestionViewDelegate {
             self.questionView.addSubview(customView)
             self.customView?.delegate = self
         }
-        // Do any additional setup after loading the view.
     }
-
+    
     func setQuiz(quiz: Quiz){
         self.quiz = quiz
     }
@@ -89,10 +87,10 @@ class QuizViewController: UIViewController, QuestionViewDelegate {
         if isAnswerCorrect{
             numCorrectAnswers += 1
         }
-
+        
         currentQuestion += 1
         
-        if(currentQuestion >= (quiz?.questionsArray.count)!){
+        if(currentQuestion >= (quiz?.relationship?.count)!){
             let endTime : DispatchTime = .now()
             let diff = Double(endTime.uptimeNanoseconds - startTime!.uptimeNanoseconds) / 1_000_000_000
             
@@ -105,7 +103,7 @@ class QuizViewController: UIViewController, QuestionViewDelegate {
                 self.timeLabel.text = "Elapsed time: \(diff) sec"
                 
                 
-                self.quizService.sendResults(quizId: self.quiz!.id, diff: diff, numCorrectAnswers: self.numCorrectAnswers){ response in
+                self.quizService.sendResults(quizId: Int(self.quiz!.id), diff: diff, numCorrectAnswers: self.numCorrectAnswers){ response in
                     
                     print(response)
                     
@@ -118,45 +116,35 @@ class QuizViewController: UIViewController, QuestionViewDelegate {
             
             return
         }
-
+        
         DispatchQueue.main.asyncAfter(deadline: .now()+0.5){
-        if let customView = Bundle.main.loadNibNamed("QuestionView", owner: self, options: nil)?.first as? QuestionView {
-            self.customView = customView
-            self.questionView.isHidden = true
-            self.questionView.addSubview(customView)
-            customView.delegate = self
-            customView.frame = CGRect(x: CGFloat(self.currentQuestion)*self.questionView.frame.size.width, y: 0, width: self.questionView.frame.size.width, height: self.questionView.frame.size.height)
-            self.questionView.contentSize = CGSize(width: CGFloat(self.currentQuestion+1)*customView.bounds.width, height: self.questionView.frame.size.height)
-            self.questionView.contentOffset = CGPoint(x: CGFloat(self.currentQuestion)*self.questionView.frame.size.width, y: self.questionView.contentOffset.y)
-
-        }
-
-        DispatchQueue.main.async {
-            self.questionView.isHidden = false
-            if let quiz = self.quiz{
-                self.customView?.questionLabel.text = quiz.questionsArray[self.currentQuestion].question
-                self.customView?.answ1.setTitle(quiz.questionsArray[self.currentQuestion].answers?[0], for: .normal)
-                self.customView?.answ2.setTitle(quiz.questionsArray[self.currentQuestion].answers?[1], for: .normal)
-                self.customView?.answ3.setTitle(quiz.questionsArray[self.currentQuestion].answers?[2], for: .normal)
-                self.customView?.answ4.setTitle(quiz.questionsArray[self.currentQuestion].answers?[3], for: .normal)
-                self.customView?.correctAnswer = quiz.questionsArray[self.currentQuestion].correctAnswer
+            if let customView = Bundle.main.loadNibNamed("QuestionView", owner: self, options: nil)?.first as? QuestionView {
+                self.customView = customView
+                self.questionView.isHidden = true
+                self.questionView.addSubview(customView)
+                customView.delegate = self
+                customView.frame = CGRect(x: CGFloat(self.currentQuestion)*self.questionView.frame.size.width, y: 0, width: self.questionView.frame.size.width, height: self.questionView.frame.size.height)
+                self.questionView.contentSize = CGSize(width: CGFloat(self.currentQuestion+1)*customView.bounds.width, height: self.questionView.frame.size.height)
+                self.questionView.contentOffset = CGPoint(x: CGFloat(self.currentQuestion)*self.questionView.frame.size.width, y: self.questionView.contentOffset.y)
+                
             }
-           
             
-        }
-
+            DispatchQueue.main.async {
+                self.questionView.isHidden = false
+                if let quiz = self.quiz{
+                    self.customView?.questionLabel.text = ((quiz.relationship![self.currentQuestion] ) as! Question).question
+                    self.customView?.answ1.setTitle(((quiz.relationship![self.currentQuestion]) as! Question).answers![0] , for: .normal)
+                    self.customView?.answ2.setTitle(((quiz.relationship![self.currentQuestion] ) as! Question).answers![1] , for: .normal)
+                    self.customView?.answ3.setTitle(((quiz.relationship![self.currentQuestion] ) as! Question).answers![2] , for: .normal)
+                    self.customView?.answ4.setTitle(((quiz.relationship![self.currentQuestion] ) as! Question).answers![3] , for: .normal)
+                    self.customView?.correctAnswer = Int(((quiz.relationship![self.currentQuestion]) as! Question ).correct_answer)
+                }
+                
+                
+            }
+            
         }
         
     }
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
+    
 }

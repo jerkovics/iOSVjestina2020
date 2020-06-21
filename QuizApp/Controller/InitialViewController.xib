@@ -14,7 +14,6 @@
             <connections>
                 <outlet property="errorLabel" destination="zr4-ZN-glw" id="SQL-SI-jJW"/>
                 <outlet property="funFactField" destination="iKh-3F-CPg" id="aVn-vu-fvw"/>
-                <outlet property="questionView" destination="yHy-yR-Elg" id="tXi-YL-Efq"/>
                 <outlet property="quizTableView" destination="dTt-cF-ruQ" id="7yT-We-lzx"/>
                 <outlet property="view" destination="iN0-l3-epB" id="dfr-en-gvd"/>
             </connections>
@@ -54,11 +53,6 @@
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 </tableView>
-                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="yHy-yR-Elg">
-                    <rect key="frame" x="20" y="652" width="374" height="209"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                </view>
                 <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jeh-Cl-yrM">
                     <rect key="frame" x="347" y="105" width="48" height="30"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
