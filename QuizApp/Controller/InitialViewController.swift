@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Reachability
 
 class InitialViewController: UIViewController,  UITableViewDataSource,  UITableViewDelegate {
     
@@ -15,7 +16,7 @@ class InitialViewController: UIViewController,  UITableViewDataSource,  UITableV
     
     @IBOutlet weak var funFactField: UILabel!
     @IBOutlet weak var errorLabel: UILabel!
-
+    
     @IBOutlet weak var quizTableView: UITableView!
     
     var customView: QuestionView?
@@ -23,6 +24,8 @@ class InitialViewController: UIViewController,  UITableViewDataSource,  UITableV
     let numOfTypes = CategoryType.numOfTypes()
     var quizzes: [Quiz] = []
     
+    var refreshControl = UIRefreshControl()
+    var reachability = try? Reachability()
     
     @IBAction func tapLogout(_ sender: UIButton) {
         UserDefaults.standard.removeObject(forKey: "user_id")
@@ -41,19 +44,29 @@ class InitialViewController: UIViewController,  UITableViewDataSource,  UITableV
     }
     
     override func viewDidLoad() {
+        reachability?.whenUnreachable = {_ in
+            self.errorLabel.isHidden = false
+        }
+        
+        refreshControl.attributedTitle = NSAttributedString(string: "Loading...")
+        refreshControl.addTarget(self, action: #selector(self.refresh), for: .valueChanged)
+        quizTableView.addSubview(refreshControl)
         
         quizTableView.delegate = self
         quizTableView.dataSource = self
         
         quizTableView.register(UINib(nibName: "QuizTableViewCell", bundle: nil), forCellReuseIdentifier: "quizCell")
-
+        
     }
     
-    @IBAction func buttonTapped(_ sender: Any) {
-        DispatchQueue.main.async {
-
-            self.errorLabel.isHidden = true
-            self.quizService.fetchQuizzes(urlString: "https://iosquiz.herokuapp.com/api/quizzes") { [weak self] (quizes) in
+    @objc func refresh(){
+        loadQuizzes()
+    }
+    
+    
+    func loadQuizzes(){
+        self.errorLabel.isHidden = true
+        self.quizService.fetchQuizzes(urlString: "https://iosquiz.herokuapp.com/api/quizzes") { [weak self] (quizes) in
             
             if !quizes.isEmpty {
                 DispatchQueue.main.async {
@@ -62,7 +75,7 @@ class InitialViewController: UIViewController,  UITableViewDataSource,  UITableV
                     self?.quizTableView.reloadData()
                 }
                 
-            //get questions from quizzes
+                //get questions from quizzes
                 var questions : [String] = []
                 
                 for quiz in quizes{
@@ -80,31 +93,32 @@ class InitialViewController: UIViewController,  UITableViewDataSource,  UITableV
                 DispatchQueue.main.async {
                     self?.funFactField.text = "Fun Facts: " + String(numOfFunFacts)
                 }
-
                 
-            
+                
+                
             } else{
                 DispatchQueue.main.async {
                     self?.errorLabel.isHidden = false
                 }
             }
+            
+            DispatchQueue.main.async {
+                self?.refreshControl.endRefreshing()
             }
         }
-        
     }
     
-
-     func numberOfSections(in tableView: UITableView) -> Int {
+    func numberOfSections(in tableView: UITableView) -> Int {
         return numOfTypes
     }
     
-     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return quizzes.filter{(quiz: Quiz) -> Bool in
             quiz.category == CategoryType.allCases[section].rawValue}.count
     }
     
     
-     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "quizCell", for: indexPath) as? QuizTableViewCell
         
         let quiz = quizzes.filter{(quiz: Quiz) -> Bool in
@@ -127,8 +141,8 @@ class InitialViewController: UIViewController,  UITableViewDataSource,  UITableV
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 129
     }
-
-     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+    
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         
         return "\(CategoryType.allCases[section])"
     }
